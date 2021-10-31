@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/arifluthfi16/gomvcboilerplate/config"
 	"github.com/arifluthfi16/gomvcboilerplate/routers"
 	"github.com/arifluthfi16/gomvcboilerplate/services"
@@ -10,29 +11,29 @@ import (
 )
 
 type Server struct {
-	db *gorm.DB
+	db     *gorm.DB
 	Router *gin.Engine
 }
 
-func (server *Server) InitServer(){
+func (server *Server) InitServer() {
 	server.Router = gin.Default()
 	var Router = routers.RouteLoader{}
-	for _, routes := range Router.LoadRoutes(){
+	for _, routes := range Router.LoadRoutes() {
 		routes.Route(server.Router)
 	}
 }
 
-func (server *Server) InjectDBToService(){
+func (server *Server) InjectDBToService() {
 	services.InjectDBIntoServices(server.db)
 }
 
-func (server *Server) Run(){
+func (server *Server) Run() {
 	fmt.Println("Rise and shine! 🌞🌞🌞")
-	fmt.Println(config.ServerConfig.AppConfig.AppName+" is listening on port : 5050")
-	server.Router.Run("127.0.0.1:5050")
+	fmt.Println(config.ServerConfig.AppConfig.AppName + " is listening on port : 5050")
+	server.Router.Run(":5050")
 }
 
-func main(){
+func main() {
 	// Load Config from Env
 	config.LoadConfig()
 
