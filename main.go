@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/arifluthfi16/gomvcboilerplate/config"
 	"github.com/arifluthfi16/gomvcboilerplate/routers"
 	"github.com/arifluthfi16/gomvcboilerplate/services"
+	"github.com/arifluthfi16/gomvcboilerplate/services/db"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -38,10 +38,9 @@ func main() {
 	config.LoadConfig()
 
 	// Uncomment this and remove Server{} to use database
-	//app := Server{db: db.LoadDB(config.ServerConfig.DBConfig)}
-	//app.InjectDBToService()
+	app := Server{db: db.LoadDB(config.ServerConfig.DBConfig)}
+	app.InjectDBToService()
 
-	app := Server{}
 	app.InitServer()
 	app.Run()
 }

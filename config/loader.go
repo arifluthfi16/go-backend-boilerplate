@@ -15,7 +15,6 @@ func LoadConfig () {
 	if err != nil {
 		log.Fatal("Error loading .env files, make sure .env file exists in project root")
 	}
-
 	// Application Config
 	ServerConfig.AppConfig.AppName = os.Getenv("APP_NAME")
 	ServerConfig.AppConfig.AppVersion = os.Getenv("APP_VERSION")
