@@ -18,10 +18,10 @@ func (controller ExampleController) ExampleHandler(c *gin.Context) {
 }
 
 func (controller ExampleController) CheckDBConnection (c *gin.Context) {
-	var responseString = "Cannot connect to DB"
+	var responseString = "Connected to DB"
 	var sqlDB, _ = services.ExampleService.DB.DB()
 	if err := sqlDB.Ping(); err != nil {
-		responseString = "Connected to DB"
+		responseString = "Cannot connect to DB"
 	}
 	var response = SuccessResponse{
 		Status: true,
