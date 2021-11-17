@@ -8,6 +8,7 @@ import (
 	"github.com/arifluthfi16/gomvcboilerplate/services/db"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"os"
 )
 
 type Server struct {
@@ -28,11 +29,15 @@ func (server *Server) InjectDBToService() {
 }
 
 func (server *Server) Run() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	fmt.Println("Rise and shine! 🌞🌞🌞")
-	fmt.Println(config.ServerConfig.AppConfig.AppName + " is listening on port : 5050")
-	server.Router.Run(":5050")
-}
+	fmt.Println(config.ServerConfig.AppConfig.AppName + " is listening on port : "+port)
+	server.Router.Run(":"+port)
 
+}
 func main() {
 	// Load Config from Env
 	config.LoadConfig()
